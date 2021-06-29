@@ -1,2 +1,2 @@
-# cloud-developer
-content for Udacity's cloud developer nanodegree
+# Image filter endpoint
+This branch has an endpoint for filtering an image
