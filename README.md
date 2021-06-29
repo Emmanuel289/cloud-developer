@@ -1,2 +1,2 @@
 # Image filter endpoint
-This branch has an endpoint for filtering an image
+This branch contains updated code for the image-filtering service
