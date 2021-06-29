@@ -1,2 +1,2 @@
 # Udacity Cloud Developer Nanodegree
-This repository contains source code for the courses, exercises and projects in the Udacity Cloud Developer Nanodegree program
+This repository contains the codebase for the exercises and projects in the Udacity Cloud Developer Nanodegree program.
