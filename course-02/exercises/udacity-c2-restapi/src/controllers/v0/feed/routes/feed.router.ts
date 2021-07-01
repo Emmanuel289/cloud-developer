@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { FeedItem } from '../models/FeedItem';
+import { FeedItem } from '../../feed/models/FeedItem';
 import { requireAuth } from '../../users/routes/auth.router';
-import * as AWS from '../../../../aws';
+import * as AWS from '../../../../../src/aws';
 
 const router: Router = Router();
 
