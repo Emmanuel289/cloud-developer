@@ -61,7 +61,6 @@ app.get('/filteredimage/', async (req, res)=>{
 })
 
 
-app.use('/tmp', deleteLocalFiles)
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
