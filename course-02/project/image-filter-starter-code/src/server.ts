@@ -31,6 +31,37 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   //! END @TODO1
   
+app.get('/filteredimage/', async (req, res)=>{
+	
+	let image_url = req.query.image_url;
+	
+	if (!image_url){
+		
+		return res.status(500).send({message: "Url of image is required"})
+	}
+	
+	const filteredPath = await filterImageFromURL(image_url);
+
+  const filteredPaths = [filteredPath]
+
+	res.status(201).sendFile(filteredPath, function (err) {
+    if (err) {
+
+      console.log({"message": err.message});
+
+    } else {
+      
+      //Delete the filtered file on disk 
+      deleteLocalFiles(filteredPaths)
+    }
+  });
+
+  
+
+})
+
+
+app.use('/tmp', deleteLocalFiles)
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
@@ -42,5 +73,6 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   app.listen( port, () => {
       console.log( `server running http://localhost:${ port }` );
       console.log( `press CTRL+C to stop server` );
+
   } );
 })();
