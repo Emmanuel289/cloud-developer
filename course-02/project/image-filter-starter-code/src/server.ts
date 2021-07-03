@@ -1,6 +1,8 @@
 import express from 'express';
+import { Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+
 
 (async () => {
 
@@ -31,20 +33,26 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   //! END @TODO1
   
-app.get('/filteredimage/', async (req, res)=>{
-	
-	let image_url = req.query.image_url;
-	
-	if (!image_url){
-		
-		return res.status(500).send({message: "Url of image is required"})
-	}
-	
-	const filteredPath = await filterImageFromURL(image_url);
+app.get('/filteredimage/', async (req: Request, res: Response)=>{
 
-  const filteredPaths = [filteredPath]
+  let image_url = req.query.image_url;
 
-	res.status(201).sendFile(filteredPath, function (err) {
+  try{
+    
+    
+    
+    if (!image_url){
+      
+      res.status(500).send({message: "Image URL is required"});
+
+    }
+  
+    const filteredPath = await filterImageFromURL(image_url);
+
+    const filteredPaths = [filteredPath]
+    
+    res.status(201).sendFile(filteredPath, (err) => {
+
     if (err) {
 
       console.log({"message": err.message});
@@ -56,14 +64,19 @@ app.get('/filteredimage/', async (req, res)=>{
     }
   });
 
-  
+  }catch(err){
+    
+    
+    res.status(422).send({"message": 'Unable to process request', "error": err.message});
 
+
+  }
 })
 
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async ( req: Request, res: Response ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
